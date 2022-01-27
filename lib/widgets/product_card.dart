@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:productos_app/models/models.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({Key? key}) : super(key: key);
+  const ProductCard({
+    Key? key,
+    required this.product,
+  }) : super(key: key);
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -14,17 +19,18 @@ class ProductCard extends StatelessWidget {
         alignment: Alignment.bottomLeft,
         children: [
           _BackroundImage(),
-          _ProductDetails(),
+          _ProductDetails(product: product),
           Positioned(
             top: 0,
             right: 0,
-            child: _PriceTag(),
+            child: _PriceTag(product: product),
           ),
-          Positioned(
-            top: 0,
-            left: 0,
-            child: _NotAvaiable(),
-          ),
+          if (product.available)
+            Positioned(
+              top: 0,
+              left: 0,
+              child: _NotAvaiable(),
+            ),
         ],
       ),
     );
@@ -82,7 +88,10 @@ class _NotAvaiable extends StatelessWidget {
 class _PriceTag extends StatelessWidget {
   const _PriceTag({
     Key? key,
+    required this.product,
   }) : super(key: key);
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +118,7 @@ class _PriceTag extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Text(
-            '\$100',
+            '\$${product.price}',
             style: TextStyle(
               fontSize: 20,
               color: Colors.white,
@@ -124,8 +133,9 @@ class _PriceTag extends StatelessWidget {
 class _ProductDetails extends StatelessWidget {
   const _ProductDetails({
     Key? key,
+    required this.product,
   }) : super(key: key);
-
+  final Product product;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -139,7 +149,7 @@ class _ProductDetails extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Disco duro g",
+              product.name,
               style: TextStyle(
                 fontSize: 20,
                 color: Colors.white,
