@@ -18,14 +18,14 @@ class ProductCard extends StatelessWidget {
       child: Stack(
         alignment: Alignment.bottomLeft,
         children: [
-          _BackroundImage(),
+          _BackroundImage(url: product.picture),
           _ProductDetails(product: product),
           Positioned(
             top: 0,
             right: 0,
             child: _PriceTag(product: product),
           ),
-          if (product.available)
+          if (!product.available)
             Positioned(
               top: 0,
               left: 0,
@@ -159,7 +159,7 @@ class _ProductDetails extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             Text(
-              "SKU: 656-456-456",
+              "SKU: ${product.id}",
               style: TextStyle(
                 fontSize: 15,
                 color: Colors.white,
@@ -190,7 +190,10 @@ class _ProductDetails extends StatelessWidget {
 class _BackroundImage extends StatelessWidget {
   const _BackroundImage({
     Key? key,
+    this.url,
   }) : super(key: key);
+
+  final String? url;
 
   @override
   Widget build(BuildContext context) {
@@ -199,11 +202,16 @@ class _BackroundImage extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 400,
-        child: FadeInImage(
-          placeholder: AssetImage('assets/jar-loading.gif'),
-          image: NetworkImage("https://via.placeholder.com/400x300/f6f6f6"),
-          fit: BoxFit.cover,
-        ),
+        child: url == null
+            ? Image(
+                image: AssetImage("assets/no-image.png"),
+                fit: BoxFit.cover,
+              )
+            : FadeInImage(
+                placeholder: AssetImage('assets/jar-loading.gif'),
+                image: NetworkImage(url!),
+                fit: BoxFit.cover,
+              ),
       ),
     );
   }
