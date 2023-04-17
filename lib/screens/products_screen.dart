@@ -67,6 +67,8 @@ class _ProductScreenBody extends StatelessWidget {
                       );
 
                       if (pickedFile == null) return;
+                      productService
+                          .updateSelectedProductImage(pickedFile.path);
                     },
                     icon: Icon(
                       Icons.camera_alt_outlined,
