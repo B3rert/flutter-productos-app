@@ -25,6 +25,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.4
+  image_picker: ^0.8.4+8
   provider: ^5.0.0
 
 dev_dependencies:
