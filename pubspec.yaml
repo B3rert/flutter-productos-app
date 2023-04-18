@@ -24,6 +24,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_secure_storage: ^8.0.0
   http: ^0.13.4
   image_picker: ^0.8.4+8
   provider: ^5.0.0
